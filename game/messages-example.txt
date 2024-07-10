@@ -1,0 +1,25 @@
+INCOMING MESSAGES:
+add,1367223
+start
+ch,1367223,down
+quit,1367223
+
+OUTGOING MESSAGES:
+{
+  "field": "10x10",
+  "player_count": usize
+}
+{
+  "players": {
+    "1367223": "9x9,8x9,7x9+6x9", // last is prev_tail?
+    "2462467": "1x1,2x1,3x1"
+  },
+  "ap": "5x7"
+}
+{
+  "players": {
+    "1367223": "dead",
+    "2462467": "1x1,2x1,3x1"
+  },
+  "ap": "8x2"
+}
