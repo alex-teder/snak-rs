@@ -8,6 +8,7 @@ const CHANGE_DIRECTION_COMMAND: &str = "ch";
 const QUIT_COMMAND: &str = "quit";
 
 const COORD_DELIMITER: &str = "x";
+const PREV_TAIL_SEPARATOR: &str = "+";
 const DEAD: &str = "dead";
 
 #[derive(Serialize)]
@@ -108,7 +109,8 @@ impl MessageProducer for Game {
 
                     let mut result = result.join(",");
                     if let Some((x, y)) = self.snakes[index].prev_tail {
-                        result = result + &format!("+{}{}{}", x, COORD_DELIMITER, y);
+                        result = result
+                            + &format!("{}{}{}{}", PREV_TAIL_SEPARATOR, x, COORD_DELIMITER, y);
                     }
 
                     players.insert(id.to_string(), result);
