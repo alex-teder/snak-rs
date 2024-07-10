@@ -111,7 +111,14 @@ fn main() {
     if let Err(e) = maybe_config {
         match e {
             CliError::Help => {
-                println!("This is help");
+                println!("Options:");
+                println!("");
+                println!("  -h <HEIGHT>           Set the height of the field.");
+                println!("  -w <WIDTH>            Set the width of the field.");
+                println!("  -s <SIZE>             Set both the width and height of the field to the same value.");
+                println!("  -t <TICK_INTERVAL>    Set the game tick interval in milliseconds.");
+                println!("  --help                Show this help message and exit.");
+                println!("");
                 process::exit(0);
             }
             CliError::WrongInput => {
