@@ -54,10 +54,11 @@ impl Game {
 
         // kill em
         for snake_index in snakes_to_die {
-            self.snakes[snake_index].kill()
+            self.snakes.remove(snake_index);
+            self.players.remove(snake_index);
         }
 
-        if self.snakes.iter().all(|snake| !snake.is_alive) {
+        if self.snakes.len() == 0 {
             self.stop();
         }
     }

@@ -6,7 +6,6 @@ use std::collections::LinkedList;
 pub struct Snake {
     pub body: LinkedList<(i8, i8)>,
     pub current_direction: Direction,
-    pub is_alive: bool,
     pub prev_tail: Option<(i8, i8)>,
     direction_locked: bool,
     field_width: i8,
@@ -27,7 +26,6 @@ impl Snake {
             field_height,
             prev_tail: None,
             direction_locked: false,
-            is_alive: true,
         }
     }
 
@@ -106,19 +104,11 @@ impl Snake {
     }
 
     pub fn move_forward(&mut self, is_apple_ahead: bool) {
-        if !self.is_alive {
-            return;
-        }
-
         self.direction_locked = false;
         self.body.push_front(self.peek());
 
         if !is_apple_ahead {
             self.prev_tail = self.body.pop_back();
         }
-    }
-
-    pub fn kill(&mut self) {
-        self.is_alive = false;
     }
 }

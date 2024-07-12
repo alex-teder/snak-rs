@@ -9,7 +9,6 @@ const QUIT_COMMAND: &str = "quit";
 
 const COORD_DELIMITER: &str = "x";
 const PREV_TAIL_SEPARATOR: &str = "+";
-const DEAD: &str = "dead";
 
 #[derive(Serialize)]
 pub enum OutMessage {
@@ -97,25 +96,17 @@ impl MessageProducer for Game {
 
         let mut players: HashMap<String, String> = HashMap::new();
         for (index, id) in self.players.iter().enumerate() {
-            match self.snakes[index].is_alive {
-                false => {
-                    players.insert(id.to_string(), DEAD.to_string());
-                }
-                true => {
-                    let mut result = vec![];
-                    for (x, y) in self.snakes[index].body.iter() {
-                        result.push(format!("{}{}{}", x, COORD_DELIMITER, y));
-                    }
+            let mut result = vec![];
+            for (x, y) in self.snakes[index].body.iter() {
+                result.push(format!("{}{}{}", x, COORD_DELIMITER, y));
+            }
 
-                    let mut result = result.join(",");
-                    if let Some((x, y)) = self.snakes[index].prev_tail {
-                        result = result
-                            + &format!("{}{}{}{}", PREV_TAIL_SEPARATOR, x, COORD_DELIMITER, y);
-                    }
+            let mut result = result.join(",");
+            if let Some((x, y)) = self.snakes[index].prev_tail {
+                result = result + &format!("{}{}{}{}", PREV_TAIL_SEPARATOR, x, COORD_DELIMITER, y);
+            }
 
-                    players.insert(id.to_string(), result);
-                }
-            };
+            players.insert(id.to_string(), result);
         }
 
         return OutMessage::GameState { players, ap };
